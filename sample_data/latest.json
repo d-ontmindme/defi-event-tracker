@@ -1,0 +1,18 @@
+{
+  "topic_list": {
+    "topics": [
+      {
+        "id": 1,
+        "title": "Governance Proposal: Add feature",
+        "created_at": "2024-07-12T00:00:00Z",
+        "slug": "governance-proposal-add-feature"
+      },
+      {
+        "id": 2,
+        "title": "Random chat",
+        "created_at": "2024-07-11T00:00:00Z",
+        "slug": "random-chat"
+      }
+    ]
+  }
+}
