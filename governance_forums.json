@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "AAVE",
+    "name": "Aave",
+    "messari_slug": "aave",
+    "snapshot_space": "aave.eth",
+    "snapshot_url": "https://snapshot.org/#/aave.eth"
+  },
+  {
+    "symbol": "UNI",
+    "name": "Uniswap",
+    "messari_slug": "uniswap",
+    "snapshot_space": "uniswap",
+    "snapshot_url": "https://snapshot.org/#/uniswap"
+  }
+]
