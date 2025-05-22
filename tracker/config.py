@@ -140,7 +140,7 @@ FORUMS = {
     "APENFT": None,
     "ether.fi": None,
     "Maple Finance": "https://forum.maple.finance",  # Maple Finance governance forum
-    "FTX Token": None (defunct),
+    "FTX Token": None,  # defunct
     "Akash Network": "https://forum.akash.network",  # Akash Network forum
     "Beam": "https://forum.beam.mw",  # Beam community forum
     "Compound": "https://www.comp.xyz",  # Compound governance forum
@@ -152,7 +152,7 @@ FORUMS = {
     "JUST": "https://www.just.network/forum",  # JUST (Tron) community forum
     "Axelar": "https://community.axelar.network",  # Axelar Community Forum:contentReference[oaicite:5]{index=5}
     "Sun [New]": None,
-    "USDD": None (Tron stablecoin),
+    "USDD": None,  # Tron stablecoin
     "Gnosis": "https://forum.gnosis.io",  # Gnosis governance forum
     "Convex Finance": "https://gov.convexfinance.com",  # Convex Finance forum
     "ai16z": None,
