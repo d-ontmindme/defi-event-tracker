@@ -5,7 +5,11 @@ import re
 from typing import Dict, List
 
 from . import config
-from .discourse_client import fetch_latest_topics
+from .forum_clients import (
+    fetch_discourse_latest,
+    fetch_reddit_posts,
+    fetch_github_discussions,
+)
 
 
 class ProposalTracker:
@@ -16,12 +20,52 @@ class ProposalTracker:
         self.forums = forums
         self.state: Dict[str, List[Dict]] = {}
 
-    def fetch_forum_proposals(self, forum_name: str, base_url: str):
-        """Return a list of proposal dictionaries for the given forum."""
-        data = fetch_latest_topics(base_url)
+    def fetch_forum_proposals(self, forum_name: str, base_url: str) -> List[Dict]:
+        """Fetch proposals for a single forum based on the URL."""
+        if not base_url:
+            return []
+
+        # Reddit
+        if 'reddit.com' in base_url:
+            data = fetch_reddit_posts(base_url)
+            if not data:
+                return []
+            proposals = []
+            for post in data.get('data', {}).get('children', []):
+                pdata = post.get('data', {})
+                title = pdata.get('title', '')
+                if re.search(r'proposal', title, re.IGNORECASE):
+                    proposals.append({
+                        'id': pdata.get('id'),
+                        'title': title,
+                        'created_at': pdata.get('created_utc'),
+                        'url': 'https://www.reddit.com' + pdata.get('permalink', ''),
+                    })
+            return proposals
+
+        # GitHub Discussions
+        if 'github.com' in base_url:
+            data = fetch_github_discussions(base_url)
+            if not data:
+                return []
+            proposals = []
+            for disc in data:
+                title = disc.get('title', '')
+                if re.search(r'proposal', title, re.IGNORECASE):
+                    proposals.append({
+                        'id': disc.get('number'),
+                        'title': title,
+                        'created_at': disc.get('created_at'),
+                        'url': disc.get('html_url'),
+                    })
+            return proposals
+
+        # Default to Discourse
+        data = fetch_discourse_latest(base_url)
         proposals = []
         if not data or 'topic_list' not in data:
             return proposals
+
         for topic in data['topic_list'].get('topics', []):
             title = topic.get('title', '')
             if re.search(r'proposal', title, re.IGNORECASE):

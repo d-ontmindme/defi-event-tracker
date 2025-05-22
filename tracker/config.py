@@ -20,8 +20,8 @@ FORUMS = {
     "UNUS SED LEO": "https://www.reddit.com/r/Bitfinex",  # LEO (Bitfinex) – no forum; using Bitfinex subreddit
     "Toncoin": "https://www.reddit.com/r/TONcoin",  # The Open Network (TON) community on Reddit
     "Litecoin": "https://litecointalk.io",  # Litecoin official forum
-    "Polkadot": "https://polkadot.polkassembly.io",  # Polkadot governance forum (Polkassembly):contentReference[oaicite:0]{index=0}
-    "Monero": "https://forum.getmonero.org",  # Monero community forum:contentReference[oaicite:1]{index=1}
+    "Polkadot": "https://polkadot.polkassembly.io",  # Polkadot governance forum (Polkassembly)
+    "Monero": "https://forum.getmonero.org",  # Monero community forum
     "Bitget Token": None,  # (Exchange token; no governance forum)
     "Pepe": None,  # (Meme token; no governance forum)
     "Pi Network": None,  # (Closed project; no public governance forum)
@@ -42,7 +42,7 @@ FORUMS = {
     "GateToken": None,  # (Exchange token; no forum)
     "Cronos": "https://www.reddit.com/r/Crypto_com",  # Cronos (Crypto.com) community on Reddit
     "VeChain": "https://www.reddit.com/r/Vechain",  # VeChain community (no official forum; Reddit)
-    "Polygon": "https://forum.polygon.technology",  # Polygon community forum:contentReference[oaicite:2]{index=2}
+    "Polygon": "https://forum.polygon.technology",  # Polygon community forum
     "Mantle": None,  # (No forum found)
     "Ethena": None,  # (No forum found)
     "Worldcoin": None,  # (New project; primarily Discord)
@@ -82,7 +82,7 @@ FORUMS = {
     "JasmyCoin": None,
     "Gala": None,
     "PayPal USD": None,
-    "IOTA": "https://govern.iota.org",  # IOTA Governance Forum:contentReference[oaicite:3]{index=3}
+    "IOTA": "https://govern.iota.org",  # IOTA Governance Forum
     "Pudgy Penguins": None,
     "Ethereum Name Service": "https://discuss.ens.domains",  # ENS governance forum
     "Lido DAO": "https://research.lido.fi",  # Lido governance forum
@@ -94,7 +94,7 @@ FORUMS = {
     "Zcash": "https://forum.zcashcommunity.com",  # Zcash community forum
     "PancakeSwap": "https://gov.pancakeswap.finance",  # PancakeSwap proposals (Snapshot governance)
     "PAX Gold": None,
-    "Pyth Network": "https://forum.pyth.network",  # Pyth DAO governance forum:contentReference[oaicite:4]{index=4}
+    "Pyth Network": "https://forum.pyth.network",  # Pyth DAO governance forum
     "Bitcoin SV": "https://www.reddit.com/r/bitcoinsv",  # Bitcoin SV community (Reddit)
     "Brett (Based)": None,
     "Walrus": None,
@@ -150,7 +150,7 @@ FORUMS = {
     "AB": None,
     "Berachain": None,
     "JUST": "https://www.just.network/forum",  # JUST (Tron) community forum
-    "Axelar": "https://community.axelar.network",  # Axelar Community Forum:contentReference[oaicite:5]{index=5}
+    "Axelar": "https://community.axelar.network",  # Axelar Community Forum
     "Sun [New]": None,
     "USDD": None,  # Tron stablecoin
     "Gnosis": "https://forum.gnosis.io",  # Gnosis governance forum
