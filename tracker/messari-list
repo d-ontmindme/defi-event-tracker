@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""
+Download the full Messari asset corpus.
+
+• Requires: requests  (and pandas if you want the optional DataFrame)
+• Optional env var:  MESSARI_API_KEY=<your-key>
+"""
+
+from __future__ import annotations
+import os
+import time
+import requests
+import pandas as pd          # ← comment out if you don’t want DataFrame output
+
+BASE_URL = "https://api.messari.io/metrics/v2/assets"
+PER_PAGE  = 500              # highest value accepted by the API as of 2025-05
+API_KEY   = os.getenv("MESSARI_API_KEY")  # set it or leave empty for public access
+SLEEP     = 0.15             # respect Messari’s 60req/min rate-limit (public tier)
+
+def fetch_all_assets() -> list[dict]:
+    """
+    Walk through every page/cursor and return a list of asset records.
+    Handles either 'page' pagination or 'cursor' style if enabled on your plan.
+    """
+    headers = {"x-messari-api-key": API_KEY} if API_KEY else {}
+    params  = {"limit": PER_PAGE}
+
+    all_rows = []
+    page_or_cursor = 1        # page index or cursor string
+    more          = True
+
+    while more:
+        # Put 'page' or 'cursor' into the params depending on what we have
+        if isinstance(page_or_cursor, int):
+            params["page"] = page_or_cursor
+        else:
+            params.pop("page", None)
+            params["cursor"] = page_or_cursor
+
+        resp = requests.get(BASE_URL, headers=headers, params=params, timeout=30)
+        resp.raise_for_status()
+        payload = resp.json()
+
+        # Rows are under data["rows"]; fall back to data list if plan differs
+        rows = payload.get("data", {}).get("rows") or payload.get("data", [])
+        all_rows.extend(rows)
+
+        # Try cursor-based first (Enterprise & some paid tiers)
+        cursor_next = (
+            payload.get("meta", {})
+                   .get("cursors", {})
+                   .get("next")
+        )
+        if cursor_next:                       # cursor pagination
+            page_or_cursor = cursor_next
+            more = True
+        else:                                 # fall back to page-based
+            total_pages = (
+                payload.get("meta", {})
+                       .get("pagination", {})
+                       .get("total_pages")
+            )
+            if total_pages is None:           # public free tier (no meta)
+                more = len(rows) == PER_PAGE
+                page_or_cursor += 1
+            else:                             # meta tells us page count
+                more = page_or_cursor < total_pages
+                page_or_cursor += 1
+
+        if more:
+            time.sleep(SLEEP)                 # be a good citizen
+
+    return all_rows
+
+
+if __name__ == "__main__":
+    assets = fetch_all_assets()
+    print(f"Fetched {len(assets):,} assets")
+
+    # ↓ Optional: throw them into a DataFrame for exploration
+    df = pd.DataFrame(assets)
+    print(df.head())
