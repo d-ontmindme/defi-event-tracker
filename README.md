@@ -1,20 +1,20 @@
-# DeFi Governance Forum Tracker
+# DeFi Governance Proposal Tracker
 
-This repository contains a script to pair crypto assets listed on Messari with their corresponding governance forums on Snapshot.
-
-## Requirements
-
-- Python 3.8+
-- `requests` library (`pip install requests`)
+This repository contains a simple Python program that collects governance
+proposals from Discourse-based forums used by various crypto projects.
 
 ## Usage
 
-Run the following command to fetch assets and their governance forums:
+1. Ensure Python 3 is available.
+2. Run `python3 -m tracker.proposal_tracker` to fetch proposals and store them
+   in `proposals.json`.
+3. Customize the forums tracked by editing `tracker/config.py`.
 
-```bash
-python scripts/fetch_governance_forums.py
+## Testing
+
+Run the unit tests with:
+
+```
+python3 -m unittest discover -s tests
 ```
 
-The script queries Messari's assets API and Snapshot's spaces API. It attempts to match assets by their symbol. The matched list is written to `governance_forums.json` in the repository root.
-
-**Note:** This environment doesn't provide network access by default, so executing the script here won't succeed. Run the script in an environment with internet connectivity.
