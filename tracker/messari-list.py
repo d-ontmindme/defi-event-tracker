@@ -10,6 +10,7 @@ Download the full Messari asset list (name + symbol).
 from __future__ import annotations
 import os
 import time
+from typing import Dict, List, Union
 import requests
 import pandas as pd           # ← comment out if you don’t need Pandas
 
@@ -19,7 +20,7 @@ API_KEY   = "G-EDma0tYGvItk6jNavKl9dQ-EXj67lxODic2KObO8lWEx7w"  # set it or leav
 RATE_WAIT = 0.15              # ~60 req/min for free tier
 
 
-def fetch_all_assets(per_page: int = PER_PAGE) -> list[dict]:
+def fetch_all_assets(per_page: int = PER_PAGE) -> List[Dict]:
     """
     Return a list of dicts with keys 'name' and 'symbol' for every asset Messari lists.
     Handles both page-based and cursor-based pagination automatically.
@@ -28,15 +29,15 @@ def fetch_all_assets(per_page: int = PER_PAGE) -> list[dict]:
     if API_KEY and API_KEY != "xxx":
         headers["x-messari-api-key"] = API_KEY
 
-    params: dict[str, str | int] = {
+    params: Dict[str, Union[str, int]] = {
         "limit": per_page,
         # ask Messari to return only the fields we need
         "fields": "name,symbol",
     }
 
-    page_or_cursor: int | str = 1    # can be an int (page) or str (cursor)
+    page_or_cursor: Union[int, str] = 1    # can be an int (page) or str (cursor)
     more = True
-    out: list[dict] = []
+    out: List[Dict] = []
 
     while more:
         if isinstance(page_or_cursor, int):

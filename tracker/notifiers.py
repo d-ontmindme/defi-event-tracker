@@ -4,18 +4,19 @@ from __future__ import annotations
 
 import urllib.parse
 import urllib.request
+from typing import Optional
 
 
 class AlertManager:
     """Send alerts via Twilio SMS/email and Telegram."""
 
     def __init__(self,
-                 twilio_sid: str | None = None,
-                 twilio_token: str | None = None,
-                 twilio_from: str | None = None,
-                 telegram_token: str | None = None,
-                 telegram_chat_id: str | None = None,
-                 email_service_sid: str | None = None):
+                 twilio_sid: Optional[str] = None,
+                 twilio_token: Optional[str] = None,
+                 twilio_from: Optional[str] = None,
+                 telegram_token: Optional[str] = None,
+                 telegram_chat_id: Optional[str] = None,
+                 email_service_sid: Optional[str] = None):
         self.twilio_sid = twilio_sid
         self.twilio_token = twilio_token
         self.twilio_from = twilio_from
