@@ -41,3 +41,13 @@ def fetch_github_discussions(base_url):
             return json.load(resp)
     except URLError:
         return None
+
+
+def fetch_x23_proposals(base_url):
+    """Return JSON from the x23.ai governance API."""
+    url = base_url.rstrip('/') + '/proposals'
+    try:
+        with request.urlopen(url) as resp:
+            return json.load(resp)
+    except URLError:
+        return None

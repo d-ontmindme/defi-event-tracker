@@ -18,6 +18,7 @@ from .forum_clients import (
     fetch_discourse_latest,
     fetch_reddit_posts,
     fetch_github_discussions,
+    fetch_x23_proposals,
 )
 
 
@@ -74,6 +75,25 @@ class ProposalTracker:
         """Fetch proposals for a single forum based on the URL."""
         if not base_url:
             return []
+
+        # x23.ai governance API
+        if 'api.x23.ai' in base_url:
+            data = fetch_x23_proposals(base_url)
+            if not data:
+                return []
+            proposals = []
+            for prop in data.get('proposals', []):
+                title = prop.get('title', '')
+                analysis = self.analyzer(title)
+                proposals.append({
+                    'id': prop.get('id'),
+                    'title': title,
+                    'created_at': prop.get('created_at'),
+                    'url': prop.get('url'),
+                    'importance': analysis['importance'],
+                    'summary': analysis['summary'],
+                })
+            return proposals
 
         # Reddit
         if 'reddit.com' in base_url:
