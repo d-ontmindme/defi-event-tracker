@@ -7,6 +7,7 @@ This project provides a small utility for gathering governance proposal links fr
 - **`tracker/proposal_tracker.py`** – core logic for fetching topics from each configured forum.
 - **`tracker/cli.py`** – command line interface used when running the tool.
 - **`tracker/config.py`** – mapping of many popular projects to the URL of their forum (values may be `None` when no forum exists).
+- **`tracker/forum_clients.py`** – helper functions for querying Discourse, Reddit, GitHub and x23.ai.
 - **`scripts/fetch_governance_forums.py`** – optional helper that pairs Messari asset data with Snapshot spaces (requires network access and the `requests` package).
 - **`tests/`** – unit tests using sample forum data from `sample_data/`.
 
@@ -46,7 +47,7 @@ python3 -m tracker -f Aave Uniswap -o my_proposals.json
 
 ## Customising behaviour
 
-The simplest way to adapt the tracker is to modify `fetch_forum_proposals` in `tracker/proposal_tracker.py`.  The default implementation looks for the substring `proposal` in the topic title and supports Discourse, Reddit and GitHub Discussions.  Additional platform handlers can be added in `tracker/forum_clients.py`.
+The simplest way to adapt the tracker is to modify `fetch_forum_proposals` in `tracker/proposal_tracker.py`.  The default implementation looks for the substring `proposal` in the topic title and supports Discourse, Reddit, GitHub Discussions and the `api.x23.ai` governance feed.  Additional platform handlers can be added in `tracker/forum_clients.py`.
 
 The optional `scripts/fetch_governance_forums.py` script demonstrates how to build a mapping of token symbols to Snapshot spaces using the Messari and Snapshot APIs.  Running it requires the `requests` package and internet access:
 
