@@ -11,7 +11,7 @@ network access.
 
 import json
 import os
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional
 
 from . import config
 from .forum_clients import (
@@ -25,7 +25,7 @@ from .forum_clients import (
 class ProposalTracker:
     """Collect proposals from a set of governance forums."""
 
-    def __init__(self, forums: Dict[str, str], analyzer: Callable[[str], Dict[str, str]] | None = None):
+    def __init__(self, forums: Dict[str, str], analyzer: Optional[Callable[[str], Dict[str, str]]] = None):
         """Initialize with a mapping of forum names to base URLs.
 
         ``analyzer`` is a callable that accepts proposal text and returns a
